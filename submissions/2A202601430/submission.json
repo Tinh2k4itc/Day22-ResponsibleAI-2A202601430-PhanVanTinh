@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0.0",
+  "metadata": {
+    "student_name": "Phan Văn Tính",
+    "student_id": "2A202601430",
+    "group_id": "2T1H",
+    "submitted_at": "2026-08-24T18:26:38+07:00"
+  },
+  "industry": "hr-recruitment",
+  "product_context": {
+    "product_name": "FairScreen Evidence-First Shortlist Assistant",
+    "product_stage": "pilot",
+    "problem_statement": "Recruiters handling high-volume entry-level roles spend too long locating job-relevant evidence in inconsistent application formats, while candidates receive little visibility into why they advance or do not advance.",
+    "target_users": [
+      "Recruiters",
+      "Hiring managers",
+      "Talent-operations analysts"
+    ],
+    "value_hypothesis": "A structured evidence view and review-order recommendation can reduce median recruiter screening time by at least 30 percent while surfacing at least 95 percent of independently adjudicated qualified applications inside a pre-registered first-review band and preserving recruiter accountability.",
+    "in_scope": [
+      "Shadow-mode evidence extraction and review-order recommendation for entry-level customer-support and software-support roles; for evaluation, each daily queue snapshot freezes at 17:00 local time, the first-review band contains the first ceiling of 50 percent of N complete applications, equal scores break by application-received timestamp then immutable application ID, and later arrivals enter the next snapshot; band membership is never a non-advance decision",
+      "Matching applications only against job-related criteria approved before a requisition opens",
+      "Recruiter views showing source evidence, uncertainty, model version, and review history",
+      "Aggregate fairness monitoring with separately governed audit attributes"
+    ],
+    "non_goals": [
+      "Automatic rejection, automatic advancement, or a final hiring decision",
+      "Personality, emotion, health, disability, demographic, or culture-fit inference",
+      "Biometric or video analysis, social-media scraping, or candidate surveillance",
+      "Employee performance, promotion, compensation, or termination decisions"
+    ],
+    "user_journey_moment": "After the application completeness check and before a recruiter creates the first interview shortlist",
+    "target_launch_or_review_date": "2026-10-15",
+    "automation_level": "recommendation",
+    "fallback_experience": "When the assistant is unavailable, uncertain, or paused, its recommendations are hidden and recruiters process the complete chronological queue with the approved manual rubric; no candidate status changes and the existing appeal channel remains open.",
+    "decision_reversibility": "partially-reversible"
+  },
+  "system_profile": {
+    "purpose": "Extract job-relevant evidence from applications and recommend a review order without deciding whether any applicant advances or is rejected.",
+    "user_groups": [
+      "Recruiters",
+      "Hiring managers",
+      "Talent-operations analysts",
+      "Independent risk and audit reviewers"
+    ],
+    "decision_impact": "The recommendation can influence recruiter attention and therefore access to interviews and employment, even though an authorized recruiter remains responsible for every status-changing decision.",
+    "data_types": [
+      "Applicant contact and identity data",
+      "Resume work history, education, skills, and application answers",
+      "HR-approved job criteria and assessment results",
+      "Separately stored voluntary demographic attributes used only for controlled fairness audits",
+      "Model, recommendation, review, override, notice, and appeal logs"
+    ],
+    "deployment_context": "An eight-week shadow pilot for private employers uses synthetic applications; lawfully de-identified historical applications may enter only after the Data Protection Officer approves provenance, transformation, re-identification risk, retention, and access. Outputs cannot affect live applicants until all release blockers are closed.",
+    "target_markets": [
+      "Vietnam shadow pilot",
+      "European Union future controlled rollout after legal readiness approval"
+    ],
+    "system_boundary": {
+      "model": "Multilingual CV-to-job evidence matching and calibrated ranking model with deterministic prohibited-feature checks",
+      "application": "Candidate portal, recruiter evidence dashboard, appeal workflow, fairness monitor, and immutable review log",
+      "people": [
+        "Job applicants as affected non-customers",
+        "Recruiters and hiring managers",
+        "Accessibility and appeal reviewers",
+        "Talent Product Owner",
+        "Legal, privacy, security, and independent Responsible AI reviewers"
+      ],
+      "vendors": [
+        "Applicant-tracking-system provider",
+        "Managed model and hosting provider selected through controlled procurement",
+        "Independent evaluation provider"
+      ],
+      "upstream_inputs": [
+        "HR-approved essential job criteria and scoring rubric",
+        "Candidate applications and optional assessments",
+        "Representative evaluation sets with documented provenance",
+        "Vendor model cards, versions, configuration, and service changes"
+      ],
+      "downstream_decisions": [
+        "Recommended recruiter review order",
+        "Human request for additional evidence or accommodation",
+        "Human shortlist, hold, or rejection with a job-related reason code",
+        "Independent appeal decision and possible reinstatement"
+      ]
+    }
+  },
+  "industry_risk_snapshot": {
+    "harm_severity": 4,
+    "high_stakes": 5,
+    "sensitive_data": 4,
+    "affected_scale": 3,
+    "human_review_need": 5,
+    "rationale": "Employment access affects income, dignity, and future opportunity. iTutorGroup, Amazon, and the still-contested Workday litigation show how explicit rules, historical patterns, or vendor integration can disadvantage applicants (SRC-01; SRC-03; SRC-04; SRC-05; SRC-18). The limited pilot constrains scale to 3, but CV data and audit attributes remain sensitive, a rejection is time-sensitive and only partly reversible, and meaningful human review is therefore rated 5. These ratings are product triage, not legal classification."
+  },
+  "legal_classification": {
+      "vietnam": {
+        "status": "uncertain-requires-legal-review",
+        "rationale": "A preliminary full-text review of Decision 33 did not identify recruitment by name, so the official AI Law, Decree 142, and high-risk list must be applied to the actual workflow rather than inferred from the industry score. Recommendation-only use with independent HR approval may differ from automatic rejection, but operational reliance, provider role, data flows, and any future automation could change the result; a signed legal mapping is a release gate.",
+      "source_ids": [
+        "SRC-09",
+        "SRC-10",
+        "SRC-11"
+      ]
+    },
+      "eu": {
+        "status": "high-risk",
+        "rationale": "For prospective live EU use, FairScreen appears to fall within Annex III 4(a) because it analyzes applications, evaluates candidates, and can materially influence recruiter attention. Counsel must document the Article 6(3) exception analysis and provider/deployer roles. Regulation (EU) 2026/1744 moves the relevant Annex III obligations to 2 December 2027, but timing does not remove the use-case classification or current legal-review gate.",
+        "source_ids": [
+          "SRC-08",
+          "SRC-20",
+          "SRC-21"
+        ]
+    },
+    "other_markets": "The United States is not a target market; U.S. cases and guidance are used only as hazard evidence, and any U.S. rollout would require a separate jurisdiction-specific review.",
+    "legal_review_required": true
+  },
+  "product_metrics": {
+    "success_kpi": "Across two consecutive shadow runs on non-overlapping samples of at least 400 applications each, a counterbalanced within-recruiter comparison on matched queues shows median evidence-review time at least 30 percent below the chronological-manual-rubric baseline, while at least 95 percent of applications independently adjudicated as qualified appear inside the pre-registered first-review band.",
+    "risk_kri": "In each evaluation run, every pre-registered cohort must meet the precision-derived sample floor and have a two-sided 95 percent confidence-interval lower bound of at least 0.80 for its first-review-band assignment-rate ratio and an upper bound of at most 5 percentage points for its absolute qualified-applicant recall gap; an underpowered or inconclusive cohort keeps GAP-02 open. Missing audit attributes and all interval methods are reported, and 0.80 is an internal screening rule rather than proof of fairness or legality.",
+    "guardrail_metric": "Exactly zero model-written candidate status changes are allowed; every human status change requires an authorized review record, while rejection, non-advance, or a hold beyond the pre-registered SLA also requires a job-related reason and appeal notice. One hidden or overdue complete application, one missing required record or notice, or one attempt to close a requisition with an unreviewed complete application automatically pauses recommendations.",
+    "review_cadence": "Integrity events such as an attempted status write, hidden application, or unregistered model, vendor, data, or configuration change are monitored continuously and trigger immediate pause; cohort KRI is computed only after pre-registered sample rules are met and reviewed within one business day, with weekly pilot review, monthly independent review, and reassessment before every job-family or market launch."
+  },
+  "release_decision": {
+    "accountable_product_owner": "Talent Product Owner",
+    "risk_acceptance_owner": "Chief People Officer",
+    "independent_reviewer": "Independent Responsible AI, Legal, Privacy, and Security Review Panel",
+    "decision": "conditional-go",
+    "release_blockers": [
+      "GAP-01: meaningful human review, reason, and appeal gate is not yet acceptance-tested",
+      "GAP-02: independent job-related validity and subgroup evaluation has not passed two runs",
+      "GAP-03: candidate notice, accessible accommodation, and manual alternative are not yet rehearsed",
+      "GAP-04: privacy impact, data separation, retention, security, and vendor controls are not yet approved",
+      "GAP-05: monitoring, version change control, incident response, and rollback drill are not yet complete",
+      "GAP-06: separate Vietnam and EU legal classifications and role assessments are not yet signed"
+    ],
+    "release_conditions": [
+      "This conditional-go authorizes only an eight-week offline shadow evaluation using synthetic applications; lawfully de-identified historical records require prior Data Protection Officer approval of provenance, transformation, re-identification risk, retention, and access. Every applicant-facing or decision-influencing live use is no-go while any GAP-01 through GAP-06 blocker remains open.",
+      "Recruiters continue the chronological manual workflow and the model cannot read or write a live candidate status.",
+      "Live use requires GAP-01 through GAP-06 marked done, two passing evaluation runs, and written approval from the risk acceptance owner plus independent legal, privacy, security, and Responsible AI reviewers.",
+      "European Union use remains disabled until the high-risk readiness pack, provider/deployer role allocation, and then-current applicability date are independently verified."
+    ],
+    "next_review_trigger": "Review on 2026-10-15 or immediately after any guardrail event, KRI breach, complaint, security/privacy incident, or material change to model, vendor, data, job family, workflow, automation level, or market.",
+    "residual_risk_rationale": "Shadow isolation prevents the model from changing real applicant outcomes, but test results can still create false confidence. The harm-map residual scores are target residuals only after their linked blockers pass acceptance; current live risk is not accepted. Live deployment remains no-go because human review, fairness and validity, accessibility, privacy, monitoring, and legal evidence are incomplete; even after closure, employment-harm severity remains high and only likelihood is expected to fall."
+  }
+}
